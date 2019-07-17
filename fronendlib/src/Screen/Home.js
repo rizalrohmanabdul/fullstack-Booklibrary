@@ -35,7 +35,7 @@ class Home extends Component {
             if (val.status === 'ada') {
                 var classStatus = 'badge badge-success'
             }else {
-                let classStatus = 'badge badge-warning'
+                var classStatus = 'badge badge-warning'
             }
             console.log(classStatus);
             return(
