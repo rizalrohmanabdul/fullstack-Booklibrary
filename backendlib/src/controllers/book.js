@@ -5,7 +5,8 @@ module.exports = {
   getBook: (req, res) => {
     bookModel.getBook()
       .then((resultBook) => {
-        help.response(res, resultBook, 200)
+        const result = resultBook
+        help.response(res, result, 200)
       })
       .catch((error) => {
         console.log(error)

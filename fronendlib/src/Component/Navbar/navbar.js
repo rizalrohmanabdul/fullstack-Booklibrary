@@ -41,7 +41,7 @@ class NavbarComponent extends React.Component {
               <NavLink href="/">Home</NavLink>
             </NavItem>
             <NavItem>
-              <NavLink href="/components/">Buku</NavLink>
+              <NavLink href="/book">Buku</NavLink>
             </NavItem>
             <NavItem>
               <NavLink href="/category">Kategori</NavLink>
