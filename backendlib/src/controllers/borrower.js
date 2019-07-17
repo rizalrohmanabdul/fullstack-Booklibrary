@@ -14,7 +14,7 @@ module.exports = {
   },
   insertBorrower: (req, res) => {
     const data = {
-      id_ktp: req.body.id_borrower,
+      id_ktp: req.body.id_ktp,
       nama_peminjam: req.body.nama_peminjam,
       alamat: req.body.alamat
     }
@@ -30,7 +30,7 @@ module.exports = {
   },
 
   updateBorrower: (req, res) => {
-    const id_ktp = req.params.id_borrower
+    const id_ktp = req.params.id_ktp
     const data = {
       id_ktp: req.body.id_borrower,
       nama_peminjam: req.body.nama_peminjam,
@@ -46,7 +46,7 @@ module.exports = {
       })
   },
   deleteBorrower: (req, res) => {
-    const id_ktp = req.params.id_borrower
+    const id_ktp = req.params.id_ktp
 
     borrowerModel.deleteBorrower(id_ktp)
       .then((resultBorrower) => {
