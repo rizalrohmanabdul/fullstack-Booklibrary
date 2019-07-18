@@ -31,7 +31,7 @@ class Peminjaman extends Component {
     await this.props.dispatch(getPeminjaman());
     await this.props.dispatch(getBukuactive());
     await this.props.dispatch(getPeminjam());
-    console.log("ini dari props makan", this.props.listpeminjaman);
+    console.log("ini dari props makan", this.props.history);
     this.setState({
       peminjamanlist: this.props.listpeminjaman.listPeminjaman.result,
       bukuformlist: this.props.listbuku.listBuku.result,
@@ -73,7 +73,16 @@ class Peminjaman extends Component {
         }
       })
   }
+  handledetails = (id) =>{
+    this.props.history.push(`/borrowing/details/2`)
+  }
   render() {
+    let currentDate = new Date();
+    let date = currentDate.getDate();
+    let month = currentDate.getMonth(); //Be careful! January is 0 not 1
+    let year = currentDate.getFullYear();
+    const dateString = year + "-" +(month + 1) + "-" + date;
+    console.log('sekarang tanggal ',dateString)
     const insertList =()=>{
 			this.state.insertlist.push({				
 				'id_buku':this.state.id_buku,
@@ -91,14 +100,15 @@ class Peminjaman extends Component {
     const list = this.state.peminjamanlist;
     const list_buku = this.state.bukuformlist
     const list_peminjam = this.state.peminjamformlist
-    const lama = list.lama_pinjam + ' Hari'
-    console.log('cihuyyy laper',list_peminjam)
-    if (list.alasan === ''){
-        var status_pinjam = 'Dipinjam'
-    }else {
-        var status_pinjam = 'Kembali'
-    }
+    console.log('cob aja', list.id_peminjaman)
     
+    console.log('cihuyyy laper',list_peminjam)
+    
+    
+    // {list_peminjam.map((val_list, index) =>{
+    //   const hasil = { nama_peminjam: val_list.nama_peminjam, nama_buku: val_list.nama_buku, tgl_pinjam: val_list.tgl_pinjam,  lama_pinjam: val_list.lama, status: val_list.status_pinjam}
+    // })}
+
     return (
       <div className="container">
         <div className="row mt-5 justify-content-md-center">
@@ -116,7 +126,7 @@ class Peminjaman extends Component {
         title="Data Peminjaman Buku"
         columns={[
           { title: 'No', field: 'id_peminjaman' },
-          { title: 'Nama Peminjam', field: 'nama_peminjam' },
+          { title: 'Nama Peminssjam', field: 'nama_peminjam' },
           { title: 'Nama Buku', field: 'nama_buku' },
           { title: 'Tanggal Pinjam', field: 'tgl_pinjam' },
           { title: 'Lama Pinjam', field: 'lama_pinjam' },
@@ -124,8 +134,22 @@ class Peminjaman extends Component {
          
         ]}
         
-        data={[{ nama_peminjam: list.nama_peminjam, nama_buku: list.nama_buku, tgl_pinjam: list.tgl_pinjam, lama_pinjam: lama, status: status_pinjam}]}
-        actions={[
+
+        data={list.map((val_listResult, index) =>{
+          if (val_listResult.alasan === ''){
+            var status_pinjam = 'Dipinjam'
+          }else {
+              var status_pinjam = 'Kembali'
+          }
+          const lama = val_listResult.lama_pinjam + ' Hari'
+          return(
+            { nama_peminjam: val_listResult.nama_peminjam, nama_buku: val_listResult.nama_buku, tgl_pinjam: val_listResult.tgl_pinjam,  lama_pinjam: lama, status: status_pinjam}
+          ) 
+         })}
+         
+        // data={[
+        //   { nama_peminjam: list.nama_peminjam, nama_buku: list.nama_buku, tgl_pinjam: list.tgl_pinjam, lama_pinjam: lama, status: status_pinjam}]}
+        actions={ [
             { 
               className: 'btn btn-danger btn-sm',
               icon: 'edit',
@@ -134,9 +158,9 @@ class Peminjaman extends Component {
             },
             {   
               className: 'btn btn-danger btn-sm',
-              icon: 'delete',
-              tooltip: 'Delete User',
-              onClick: () =>this.handledelete(list.id_peminjaman)
+              icon: 'details',
+              tooltip: 'Detail Peminjaman',
+              onClick: () =>this.handledetails(list.id_peminjaman)
             }
           ]}        
         options={{
@@ -156,11 +180,11 @@ class Peminjaman extends Component {
                 <label className="control-label" htmlFor="idKtp">
                   Nama Anggota Perpustakaan
                 </label>
-                <select name="id_peminjam" onChange = {(e)=>this.setState({id_peminjam:e.target.value})} className="form-control" required>
+                <select name="id_ktp" onChange = {(e)=>this.setState({id_ktp:e.target.value})} className="form-control" required>
                 <option >--Pilih Anggota--</option>
                 {list_peminjam.map((val_list, index) =>{
                     return(
-                        <option key ={index} value={val_list.id_peminjaman}>{val_list.nama_peminjam}</option>
+                        <option key ={index} value={val_list.id_ktp}>{val_list.nama_peminjam}</option>
                     )
                 })}
                 </select >
@@ -171,11 +195,11 @@ class Peminjaman extends Component {
                 </label>
                 <select name="id_buku" onChange = {(e)=>this.setState({id_buku:e.target.value})} className="form-control" required>
                 <option >--Pilih Buku--</option>
-                {list_buku.map((val_list, index) =>{
+                {list_buku.length > 1 ? list_buku.map((val_list, index) =>{
                     return(
                         <option key ={index} value={val_list.id_buku}>{val_list.nama_buku}</option>
                     )
-                })}
+                }): <option key ={list_buku.id_buku} value={list_buku.id_buku}>{list_buku.nama_buku}</option>}
                 </select >
               </div>
               <div className="form-group">

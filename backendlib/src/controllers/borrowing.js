@@ -7,29 +7,41 @@ module.exports = {
       .then((resultBorrowing) => {
         help.response(res, resultBorrowing, 200)
       })
-      .catch((error)=>{
+      .catch((error) => {
         console.log(error)
       })
-      
+  },
+  detailBorrowing: (req, res) => {
+    const id = req.params.id
+    borrowingModel.detailBorrowing(id)
+      .then((resultBorrowing) => {
+        help.response(res, resultBorrowing, 200)
+      })
+      .catch((error) => {
+        console.log(error)
+      })
   },
   insertBorrowing: (req, res) => {
+    const lama_pinjam = req.body.lama_pinjam
+    const kadaluarsa = new Date(new Date().getTime()+(lama_pinjam*24*60*60*1000)); // 1000 ini buat pengkalian milisecondnya date object
     const data = {
       id_buku: req.body.id_buku,
       id_ktp: req.body.id_ktp,
-      tgl_pinjam: new  Date().getTime(),
+      tgl_pinjam: new Date(),
       lama_pinjam: req.body.lama_pinjam,
+      tgl_kadaluarsa: kadaluarsa ,
       tgl_kembali: '',
       denda: '',
       alasan: ''
     }
-    
+
     borrowingModel.insertBorrowing(data)
       .then((resultBorrowing) => {
         const result = resultBorrowing
         help.response(res, result, 200, data)
       })
       .catch((error) => {
-        console.log(error);
+        console.log(error)
       })
   },
 
@@ -46,7 +58,7 @@ module.exports = {
         help.response(res, result, 200, [id_ktp, data])
       })
       .catch((error) => {
-        console.log(error);
+        console.log(error)
       })
   },
   deleteBorrowing: (req, res) => {

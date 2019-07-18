@@ -9,6 +9,7 @@ import Home from "./Screen/Home";
 import Peminjam from "./Screen/Peminjam";
 import Kategori from "./Screen/Kategori";
 import Peminjaman from "./Screen/Peminjaman";
+import DetailPeminjaman from "./Screen/DetailPeminjaman";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
         <Route exact path={'/borrower'} component={Peminjam}/>
         <Route exact path={'/category'} component={Kategori}/>
         <Route exact path={'/borrowing'} component={Peminjaman}/>
+        <Route exact path={'/borrowing/details/:id'} component={DetailPeminjaman}/>
       </div>
     </Provider> 
   );
