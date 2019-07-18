@@ -30,7 +30,8 @@ class Buku extends Component {
     console.log("ini dari props listbuku", this.props.listbuku);
     console.log("ini dari props list Kategori", this.props.listkategori);
     this.setState({
-      bukulist: this.props.listbuku.listBuku.result
+      bukulist: this.props.listbuku.listBuku.result,
+      kategorilist: this.props.listkategori.listKategori.result
     });
   };
   toggle = this.toggle.bind(this);
@@ -68,9 +69,11 @@ class Buku extends Component {
   }
   render() {
     const insertList =()=>{
-			this.state.insertlist.push({				
-				'nama_kategori':this.state.nama_kategori,
-				'nama_rak':this.state.nama_rak
+			this.state.insertlist.push({
+                'id_kategori':this.state.id_kategori,
+                'nama_buku':this.state.nama_buku,
+                'pengarang':this.state.pengarang,		
+				'gbr':this.state.gbr
 			})
 			this.setState((prevState) => ({
 				modal: !prevState.modal
@@ -82,6 +85,7 @@ class Buku extends Component {
 		}
     const list = this.state.bukulist;
     const list_kategori = this.state.kategorilist;
+    console.log('ini dari list bawah ya', list_kategori)
     
     return (
       <div className="container">
@@ -166,23 +170,40 @@ class Buku extends Component {
                 <label className="control-label" htmlFor="namaPeminjam">
                   Kategori
                 </label>
-                <select name="nama_rak" onChange = {(e)=>this.setState({nama_rak:e.target.value})} className="form-control" required>
-                <option >--Pilih Lokasi Rak--</option>
+                <select name="id_kategori" onChange = {(e)=>this.setState({id_kategori:e.target.value})} className="form-control" required>
+                <option >--Pilih Kategori Buku--</option>
                 {list_kategori.map((val_list, index) =>{
-                    
+                    return(
+                        <option key ={index} value={val_list.id_kategori}>{val_list.nama_kategori}</option>
+                    )
                 })}
-                <option value="Rak A">Rak A</option>
-                <option value="Rak B">Rak B</option>
-                <option value="Rak C">Rak C</option>
-                <option value="Rak D">Rak D</option>
-                <option value="Rak E">Rak E</option>
-                <option value="Rak F">Rak F</option>
-                <option value="Rak G">Rak G</option>
-                <option value="Rak H">Rak H</option>
-                <option value="Rak I">Rak I</option>
-                <option value="Rak J">Rak J</option>
-                <option value="Rak K">Rak K</option>
                 </select >
+              </div>
+              <div className="form-group">
+                <label className="control-label" htmlFor="idKtp">
+                  pengarang
+                </label>
+                <input
+                  type="text"
+                  name="pengarang"
+                  className="form-control"
+                  id="idKtp"
+                  required
+                  onChange = {(e)=>this.setState({pengarang:e.target.value})}
+                />
+              </div>
+              <div className="form-group">
+                <label className="control-label" htmlFor="idKtp">
+                 URL Gambar Buku
+                </label>
+                <input
+                  type="text"
+                  name="gbr"
+                  className="form-control"
+                  id="idKtp"
+                  required
+                  onChange = {(e)=>this.setState({gbr:e.target.value})}
+                />
               </div>
             </ModalBody>
             <ModalFooter>

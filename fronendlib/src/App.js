@@ -8,6 +8,7 @@ import Buku from "./Screen/Buku";
 import Home from "./Screen/Home";
 import Peminjam from "./Screen/Peminjam";
 import Kategori from "./Screen/Kategori";
+import Peminjaman from "./Screen/Peminjaman";
 
 function App() {
   return (
@@ -18,7 +19,7 @@ function App() {
         <Route exact path={'/book'} component={Buku}/>
         <Route exact path={'/borrower'} component={Peminjam}/>
         <Route exact path={'/category'} component={Kategori}/>
-        {/* <Route path={'/borrow'} component={Borrow}/> */}
+        <Route exact path={'/borrowing'} component={Peminjaman}/>
       </div>
     </Provider> 
   );

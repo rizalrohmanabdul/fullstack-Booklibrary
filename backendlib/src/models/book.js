@@ -12,6 +12,18 @@ module.exports = {
       })
     })
   },
+  getBookactive: () => {
+    const data = 'ada'
+    return new Promise((resolve, reject) => {
+      conn.query('SELECT  * FROM  tb_buku LEFT JOIN tb_kategori  ON tb_buku.id_kategori = tb_kategori.id_kategori WHERE tb_buku.status=?', data, (err, result) => {
+        if (!err) {
+          resolve(result)
+        } else {
+          reject(new Error(err))
+        }
+      })
+    })
+  },
   insertBook: (data) => {
     return new Promise((resolve, reject) => {
       conn.query('INSERT INTO tb_buku SET ?', data, (err, result) => {

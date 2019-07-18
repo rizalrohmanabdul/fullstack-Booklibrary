@@ -12,6 +12,16 @@ module.exports = {
         console.log(error)
       })
   },
+  getBookactive: (req, res) => {
+    bookModel.getBookactive()
+      .then((resultBook) => {
+        const result = resultBook
+        help.response(res, result, 200)
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+  },
   insertBook: (req, res) => {
     const data = {
       id_kategori: req.body.id_kategori,

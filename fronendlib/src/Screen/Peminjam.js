@@ -81,6 +81,7 @@ class Peminjam extends Component {
 			
 		}
     const list = this.state.peminjamlist;
+    console.log('dari list', list)
     
     return (
       <div className="container">

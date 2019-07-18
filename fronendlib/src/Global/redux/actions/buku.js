@@ -8,6 +8,13 @@ export const getBuku = () => {
   };
 };
 
+export const getBukuactive = () => {
+  return {
+    type: "GET_BUKU_ACTIVE",
+    payload: axios.get(URL+'/book/active')
+  };
+};
+
 export const postBuku = (data) => {
   console.log('ini dari aksi',data[0]);
   // {id_ktp:data[0].id_ktp, nama_KATEGORI: data[0].nama_KATEGORI, alamat: data[0].alamat}

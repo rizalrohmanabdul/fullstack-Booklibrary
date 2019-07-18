@@ -47,7 +47,7 @@ class NavbarComponent extends React.Component {
               <NavLink href="/category">Kategori</NavLink>
             </NavItem>
             <NavItem>
-              <NavLink href="/components/">Peminjaman</NavLink>
+              <NavLink href="/borrowing">Peminjaman</NavLink>
             </NavItem>
             <NavItem>
               <NavLink href="/borrower">Peminjam</NavLink>

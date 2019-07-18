@@ -1,96 +1,76 @@
 const initialState = {
-    listBuku: [],
+    listPeminjaman: [],
     isLoading: false,
     isRejected: false,
     isFulfilled: false
   };
   
-  const buku = (state = initialState, action) => {
+  const peminjaman = (state = initialState, action) => {
     switch (action.type) {
-      case "GET_BUKU_PENDING":
+      case "GET_PEMINJAMAN_PENDING":
         return {
           ...state,
           isLoading: true,
           isRejected: false,
           isFulfilled: false
         };
-      case "GET_BUKU_REJECTED":
+      case "GET_PEMINJAMAN_REJECTED":
         return {
           ...state,
           isLoading: false,
           isRejected: true
         };
-      case "GET_BUKU_FULFILLED":
+      case "GET_PEMINJAMAN_FULFILLED":
         return {
           ...state,
           isLoading: false,
           isFulfilled: true,
-          listBuku: action.payload.data
+          listPeminjaman: action.payload.data
         };
-        case "GET_BUKU_ACTIVE_PENDING":
-          return {
-            ...state,
-            isLoading: true,
-            isRejected: false,
-            isFulfilled: false
-          };
-        case "GET_BUKU_ACTIVE_REJECTED":
-          return {
-            ...state,
-            isLoading: false,
-            isRejected: true
-          };
-        case "GET_BUKU_ACTIVE_FULFILLED":
-          return {
-            ...state,
-            isLoading: false,
-            isFulfilled: true,
-            listBuku: action.payload.data
-          };
-      case "DELETE_BUKU_PENDING":
+      case "DELETE_PEMINJAMAN_PENDING":
         return {
           ...state,
           isLoading: true,
           isRejected: false,
           isFulfilled: false
         };
-      case "DELETE_BUKU_REJECTED":
+      case "DELETE_PEMINJAMAN_REJECTED":
         return {
           ...state,
           isLoading: false,
           isRejected: true
         };
-      case "DELETE_BUKU_FULFILLED":
+      case "DELETE_PEMINJAMAN_FULFILLED":
         return {
           ...state,
           isLoading: false,
           isFulfilled: true,
-          listBuku: action.payload.data
+          listPeminjaman: action.payload.data
         };
-        case "POST_BUKU_PENDING":
+        case "POST_PEMINJAMAN_PENDING":
           return {
             ...state,
             isLoading: true,
             isRejected: false,
             isFulfilled: false
           };
-        case "POST_BUKU_REJECTED":
+        case "POST_PEMINJAMAN_REJECTED":
           return {
             ...state,
             isLoading: false,
             isRejected: true
           };
-        case "POST_BUKU_FULFILLED":
+        case "POST_PEMINJAMAN_FULFILLED":
           return {
             ...state,
             isLoading: false,
             isFulfilled: true,
-            listBuku: action.payload.data
+            listPeminjaman: action.payload.data
           };
       default:
         return state;
     }
   };
   
-  export default buku;
+  export default peminjaman;
   
