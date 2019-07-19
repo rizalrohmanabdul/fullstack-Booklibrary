@@ -47,6 +47,26 @@ const initialState = {
             isFulfilled: true,
             listPeminjaman: action.payload.data
           };
+          case "KEMBALI_PEMINJAMAN_PENDING":
+          return {
+            ...state,
+            isLoading: true,
+            isRejected: false,
+            isFulfilled: false
+          };
+        case "KEMBALI_PEMINJAMAN_REJECTED":
+          return {
+            ...state,
+            isLoading: false,
+            isRejected: true
+          };
+        case "KEMBALI_PEMINJAMAN_FULFILLED":
+          return {
+            ...state,
+            isLoading: false,
+            isFulfilled: true,
+            listPeminjaman: action.payload.data
+          };
       case "DELETE_PEMINJAMAN_PENDING":
         return {
           ...state,

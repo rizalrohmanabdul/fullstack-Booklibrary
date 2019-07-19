@@ -15,9 +15,16 @@ export const detailPeminjaman = (id) => {
   };
 };
 
+export const kembaliPeminjaman = (id, data) => {
+  console.log('ini dari aksi',data);
+  return {
+    type: "KEMBALI_PEMINJAMAN",
+    payload: axios.patch(URL+`/borrowing/retruned/${id}`, data)
+  };
+};
+
 export const postPeminjaman = (data) => {
   console.log('ini dari aksi',data[0]);
-  // {id_ktp:data[0].id_ktp, nama_peminjam: data[0].nama_peminjam, alamat: data[0].alamat}
   return {
     type: "POST_PEMINJAMAN",
     payload: axios.post(URL+'/borrowing', data[0])

@@ -1,41 +1,60 @@
 import React, { Component } from "react";
 import moment from "moment";
 import { connect } from "react-redux";
-import { detailPeminjaman } from "../Global/redux/actions/peminjaman";
+import {
+  detailPeminjaman,
+  kembaliPeminjaman
+} from "../Global/redux/actions/peminjaman";
 import { Button } from "reactstrap";
 import swal from "sweetalert";
 
 class DetailPeminjaman extends Component {
   state = {
-    detaillist: []
+    detaillist: [],
+    kembalilist: []
   };
 
   componentDidMount = async () => {
-    await this.props.dispatch(detailPeminjaman(6));
+    const id_detail = this.props.match.params.id;
+    await this.props.dispatch(detailPeminjaman(id_detail));
     console.log("ini dari props", this.props);
     this.setState({
       detaillist: this.props.listpeminjam.listPeminjaman.result
     });
   };
-  handlekembali = (id) =>{
-    console.log('coba id', id);
-    swal("Buku Telah Berhasil Kembali Ke Rak", {
-        icon: "success",
-      })
-    
-        //   this.props.dispatch(deletePinjam(id));
-        //   this.setState({ id_ktp : id })
-       
-  }
+
+  // handleupdate = () =>{
+  //   swal({
+  //       title: "Maaf Fitur ini Sedang Masa Perbaikan",
+  //       icon: "warning",
+  //     })
+  // }
+
+  
   render() {
     const list = this.state.detaillist;
-
     console.log("taggal", moment().format("YYYY-MM-DD"));
     const tgl_denda = moment(list.tgl_kadaluarsa).format("YYYY-MM-DD");
     if (moment().format("YYYY-MM-DD") < tgl_denda) {
-      var denda = "-";
+      var dendaTelat = "0";
     } else {
-      var denda = "3000";
+      var dendaTelat = "3000";
+    }
+
+    console.log(list.id_buku)
+    const handleupdate = () =>{
+      const data = {
+        id_buku:list.id_buku,
+        denda: dendaTelat
+      }
+      this.props.dispatch(kembaliPeminjaman(this.props.match.params.id, data));
+      swal({
+        title: "Buku Telah Berhasil Kembali Ke Rak",
+        icon: "success",
+      }).then(()=>{
+        this.props.history.push(`/borrowing`)
+      })
+      
     }
     return (
       <div className="container">
@@ -93,22 +112,22 @@ class DetailPeminjaman extends Component {
                 {list.id_ktp + " || " + list.nama_peminjam}
               </div>
               <div className="card-body mt-3">
-                <h5 className="card-title" style={{ color: "yellow" }}>
-                  Denda : Rp.{denda}
-                </h5>
-                <Button
-                  className="btn btn-danger mb-3"
-                  
-                  onClick={() => this.handlekembali(list.id_peminjam)}
-                >
-                  Kembali
-                </Button>
-                <div className="alert alert-danger text-center" role="alert">
-                  <p className="card-text">Buku Harus Kembali Sebelum :</p>
-                  {tgl_denda}
-                </div>
-              </div>
+      <h5 className="card-title" style={{ color: "yellow" }}>
+        Denda : Rp.{dendaTelat}
+      </h5>
+      <Button
+        className="btn btn-danger mb-3"
+        onClick={handleupdate.bind(this)}
+      >
+        Kembali
+      </Button>
+      <div className="alert alert-danger text-center" role="alert">
+        <p className="card-text">Buku Harus Kembali Sebelum :</p>
+        {tgl_denda}
+      </div>
+    </div>
             </div>
+            
           </div>
         </div>
       </div>

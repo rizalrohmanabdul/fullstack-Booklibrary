@@ -33,7 +33,7 @@ module.exports = {
     const data2 = "dipinjam";
     const id_buku = data.id_buku;
     return new Promise((resolve, reject) => {
-      conn.query("INSERT INTO tb_peminjaman SET ?", data, (err, result) => {
+      conn.query("INSERT INTO tb_peminjaman SET ?", data, (_err, _result) => {
         conn.query(
           "UPDATE tb_buku SET status= ? WHERE id_buku=?",
           [data2, id_buku],
@@ -49,6 +49,7 @@ module.exports = {
     });
   },
   updateBorrowing: (id_ktp, data) => {
+    
     return new Promise((resolve, reject) => {
       conn.query(
         "UPDATE tb_peminjaman SET ? WHERE id_ktp=?",
@@ -59,6 +60,30 @@ module.exports = {
           } else {
             reject(new Error(err));
           }
+        }
+      );
+    });
+  },
+  retrunedBorrowing: (_id_peminjaman, data) => {
+    console.log(data)
+    const data2 = "ada";
+    const id_buku = data.id_buku;
+    return new Promise((resolve, reject) => {
+      conn.query(
+        "UPDATE tb_peminjaman SET ? WHERE id_peminjaman=?",
+        [data, _id_peminjaman],
+        (err, result) => {
+          conn.query(
+            "UPDATE tb_buku SET status= ? WHERE id_buku=?",
+            [data2, id_buku],
+            (err, result) => {
+              if (!err) {
+                resolve(result);
+              } else {
+                reject(new Error(err));
+              }
+            }
+          );
         }
       );
     });

@@ -7,6 +7,7 @@ import {
   ModalBody,
   ModalFooter
 } from "reactstrap";
+import moment from "moment";
 import swal from 'sweetalert';
 import MaterialTable from 'material-table';
 import { connect } from "react-redux";
@@ -74,7 +75,13 @@ class Peminjaman extends Component {
       })
   }
   handledetails = (id) =>{
-    this.props.history.push(`/borrowing/details/2`)
+    this.props.history.push(`/borrowing/details/${id}`)
+  }
+  handleupdate = () =>{
+    swal({
+        title: "Maaf Fitur ini Sedang Masa Perbaikan",
+        icon: "warning",
+      })
   }
   render() {
     let currentDate = new Date();
@@ -125,7 +132,7 @@ class Peminjaman extends Component {
         <MaterialTable
         title="Data Peminjaman Buku"
         columns={[
-          { title: 'No', field: 'id_peminjaman' },
+          { title: 'Id', field: 'id' },
           { title: 'Nama Peminssjam', field: 'nama_peminjam' },
           { title: 'Nama Buku', field: 'nama_buku' },
           { title: 'Tanggal Pinjam', field: 'tgl_pinjam' },
@@ -136,14 +143,15 @@ class Peminjaman extends Component {
         
 
         data={list.map((val_listResult, index) =>{
-          if (val_listResult.alasan === ''){
+          const lamap = moment(val_listResult.tgl_pinjam).format("DD-MM-YYYY");
+          if (val_listResult.tgl_kembali === '0000-00-00'){
             var status_pinjam = 'Dipinjam'
           }else {
               var status_pinjam = 'Kembali'
           }
           const lama = val_listResult.lama_pinjam + ' Hari'
           return(
-            { nama_peminjam: val_listResult.nama_peminjam, nama_buku: val_listResult.nama_buku, tgl_pinjam: val_listResult.tgl_pinjam,  lama_pinjam: lama, status: status_pinjam}
+            {id:val_listResult.id_peminjaman, nama_peminjam: val_listResult.nama_peminjam, nama_buku: val_listResult.nama_buku, tgl_pinjam:  lamap,  lama_pinjam: lama, status: status_pinjam}
           ) 
          })}
          
@@ -154,13 +162,13 @@ class Peminjaman extends Component {
               className: 'btn btn-danger btn-sm',
               icon: 'edit',
               tooltip: 'edit',
-              onClick: () =>this.handledelete(list.id_peminjaman)
+              onClick: () =>this.handleupdate()
             },
             {   
               className: 'btn btn-danger btn-sm',
               icon: 'details',
               tooltip: 'Detail Peminjaman',
-              onClick: () =>this.handledetails(list.id_peminjaman)
+              onClick: (event, rowData) =>this.handledetails(rowData.id)
             }
           ]}        
         options={{

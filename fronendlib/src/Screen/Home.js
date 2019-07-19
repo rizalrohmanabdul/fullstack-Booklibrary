@@ -46,7 +46,7 @@ class Home extends Component {
                     style={{ width: "15rem" }}
                   >
                     <Link to={"/bookDetail/"}>
-                      <img src={val.gbr} className="card-img-top cardHome" alt="..." />
+                      <img src={val.gbr} style={{height: '180px'}} className="card-img-top cardHome" alt="..." />
                     </Link>
                     <h5>
                       <span className={classStatus}>{val.status}</span>
@@ -55,7 +55,7 @@ class Home extends Component {
                       <p className="card-text">
                         <h5>{val.nama_buku}</h5>
                       </p>
-                      <p className="hidden">val.nama_buku</p>
+                      <p className="hidden"></p>
                     </div>
                   </div>
                 </div>

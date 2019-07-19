@@ -63,6 +63,12 @@ class Kategori extends Component {
         }
       })
   }
+  handleupdate = () =>{
+    swal({
+        title: "Maaf Fitur ini Sedang Masa Perbaikan",
+        icon: "warning",
+      })
+  }
   render() {
     const insertList =()=>{
 			this.state.insertlist.push({				
@@ -112,7 +118,7 @@ class Kategori extends Component {
                     <td>{val.nama_kategori}</td>
                     <td>{val.nama_rak}</td>
                     <td>
-                      <Button className="btn btn-success btn-sm" >
+                      <Button className="btn btn-success btn-sm" onClick={() =>this.handleupdate()}>
                         {" "}
                         <i className="fa fa-edit" title="edit" />
                       </Button>{" "}

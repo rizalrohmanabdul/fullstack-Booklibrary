@@ -45,6 +45,24 @@ module.exports = {
       })
   },
 
+  retrunedBorrowing: (req, res) => {
+    const id_peminjaman = req.params.id_borrowing
+    const data = {
+      id_buku: req.body.id_buku,
+      tgl_kembali: new Date(),
+      denda: req.body.denda
+    }
+
+    borrowingModel.retrunedBorrowing(id_peminjaman, data)
+      .then((resultBorrowing) => {
+        const result = resultBorrowing
+        help.response(res, result, 200, data)
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+  },
+
   updateBorrowing: (req, res) => {
     const id_ktp = req.params.id_borrowing
     const data = {

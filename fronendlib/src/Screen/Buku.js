@@ -67,6 +67,12 @@ class Buku extends Component {
         }
       })
   }
+  handleupdate = () =>{
+    swal({
+        title: "Maaf Fitur ini Sedang Masa Perbaikan",
+        icon: "warning",
+      })
+  }
   render() {
     const insertList =()=>{
 			this.state.insertlist.push({
@@ -130,7 +136,7 @@ class Buku extends Component {
                     </td>
                     <td>{val.status}</td>
                     <td>
-                      <Button className="btn btn-success btn-sm"  >
+                      <Button className="btn btn-success btn-sm"  onClick={() =>this.handleupdate()} >
                         {" "}
                         <i className="fa fa-edit" title="edit" />
                       </Button>{" "}
