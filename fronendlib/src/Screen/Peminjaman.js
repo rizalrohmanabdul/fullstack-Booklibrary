@@ -99,10 +99,12 @@ class Peminjaman extends Component {
 			this.setState((prevState) => ({
 				modal: !prevState.modal
 			}));
-      console.log(this.state.insertlist)
+      console.log('cek cek cek',this.state.insertlist)
       const data = this.state.insertlist
       this.props.dispatch(postPeminjaman(data));
-			
+
+      this.props.history.push(`/borrowing`)
+      			
 		}
     const list = this.state.peminjamanlist;
     const list_buku = this.state.bukuformlist

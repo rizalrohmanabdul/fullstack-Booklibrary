@@ -30,6 +30,7 @@ module.exports = {
     });
   },
   insertBorrowing: data => {
+    console.log(data)
     const data2 = "dipinjam";
     const id_buku = data.id_buku;
     return new Promise((resolve, reject) => {

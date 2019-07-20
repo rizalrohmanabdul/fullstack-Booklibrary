@@ -28,11 +28,10 @@ module.exports = {
       id_buku: req.body.id_buku,
       id_ktp: req.body.id_ktp,
       tgl_pinjam: new Date(),
-      lama_pinjam: req.body.lama_pinjam,
-      tgl_kadaluarsa: kadaluarsa ,
+      lama_pinjam: lama_pinjam,
+      tgl_kadaluarsa: kadaluarsa,
       tgl_kembali: '',
-      denda: '',
-      alasan: ''
+      denda: ''
     }
 
     borrowingModel.insertBorrowing(data)

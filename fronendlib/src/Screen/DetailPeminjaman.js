@@ -41,6 +41,11 @@ class DetailPeminjaman extends Component {
       var dendaTelat = "3000";
     }
 
+    if(moment(list.tgl_kembali).format("YYYY-MM-DD") === '0000-000-000') {
+        var btn = "btn btn-danger mb-3"
+        
+    }
+
     console.log(list.id_buku)
     const handleupdate = () =>{
       const data = {
