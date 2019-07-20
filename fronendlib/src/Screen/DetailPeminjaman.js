@@ -41,9 +41,19 @@ class DetailPeminjaman extends Component {
       var dendaTelat = "3000";
     }
 
-    if(moment(list.tgl_kembali).format("YYYY-MM-DD") === '0000-000-000') {
+    if(list.tgl_kembali === "0000-00-00") {
         var btn = "btn btn-danger mb-3"
-        
+        var btnproperty = "Kembali"
+        var warnakadaluarsa = "alert alert-danger text-center"
+        var didenda = `${tgl_denda}`
+        var peringatan = "Buku Harus Kembali Sebelum"
+
+    }else {
+      var btn = "btn btn-success mb-3"
+      var btnproperty = "Sudah di rak"
+      var warnakadaluarsa = "alert alert-success text-center"
+      var peringatan = "Buku Telah Kembali Pada"
+      var didenda = moment(list.tgl_kembali).format("YYYY-MM-DD")
     }
 
     console.log(list.id_buku)
@@ -121,14 +131,14 @@ class DetailPeminjaman extends Component {
         Denda : Rp.{dendaTelat}
       </h5>
       <Button
-        className="btn btn-danger mb-3"
+        className={btn}
         onClick={handleupdate.bind(this)}
       >
-        Kembali
+        {btnproperty}
       </Button>
-      <div className="alert alert-danger text-center" role="alert">
-        <p className="card-text">Buku Harus Kembali Sebelum :</p>
-        {tgl_denda}
+      <div className={warnakadaluarsa} role="alert">
+        <p className="card-text">{peringatan}</p>
+        {didenda}
       </div>
     </div>
             </div>
